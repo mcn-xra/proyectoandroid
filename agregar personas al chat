@@ -1,0 +1,90 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class MensajeriaInstantanea {
+    private List<Usuario> usuarios;
+    private List<Conversacion> conversaciones;
+
+    public MensajeriaInstantanea() {
+        usuarios = new ArrayList<>();
+        conversaciones = new ArrayList<>();
+    }
+
+    public void agregarUsuario(Usuario usuario) {
+        usuarios.add(usuario);
+    }
+
+    public void crearConversacion(Usuario usuario1, Usuario usuario2) {
+        Conversacion conversacion = new Conversacion(usuario1, usuario2);
+        conversaciones.add(conversacion);
+    }
+
+    public void agregarUsuarioAConversacion(Conversacion conversacion, Usuario usuario) {
+        conversacion.agregarUsuario(usuario);
+    }
+
+    public void enviarMensaje(Conversacion conversacion, Usuario usuario, String mensaje) {
+        conversacion.enviarMensaje(usuario, mensaje);
+    }
+
+    public class Usuario {
+        private String nombre;
+        private String apellido;
+
+        public Usuario(String nombre, String apellido) {
+            this.nombre = nombre;
+            this.apellido = apellido;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public String getApellido() {
+            return apellido;
+        }
+    }
+
+    public class Conversacion {
+        private List<Usuario> usuarios;
+        private List<Mensaje> mensajes;
+
+        public Conversacion(Usuario usuario1, Usuario usuario2) {
+            usuarios = new ArrayList<>();
+            usuarios.add(usuario1);
+            usuarios.add(usuario2);
+            mensajes = new ArrayList<>();
+        }
+
+        public void agregarUsuario(Usuario usuario) {
+            usuarios.add(usuario);
+        }
+
+        public void enviarMensaje(Usuario usuario, String mensaje) {
+            Mensaje msg = new Mensaje(usuario, mensaje);
+            mensajes.add(msg);
+        }
+
+        public List<Mensaje> getMensajes() {
+            return mensajes;
+        }
+    }
+
+    public class Mensaje {
+        private Usuario usuario;
+        private String texto;
+
+        public Mensaje(Usuario usuario, String texto) {
+            this.usuario = usuario;
+            this.texto = texto;
+        }
+
+        public Usuario getUsuario() {
+            return usuario;
+        }
+
+        public String getTexto() {
+            return texto;
+        }
+    }
+}
