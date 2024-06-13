@@ -1,0 +1,77 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class ChatClient {
+    private JFrame frame;
+    private JTextField messageField;
+    private JTextArea chatArea;
+    private JList<String> groupList;
+    private DefaultListModel<String> groupListModel;
+    private List<String> groups;
+
+    public ChatClient() {
+        frame = new JFrame("Mensajería Instantánea");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Panel de grupos
+        groupListModel = new DefaultListModel<>();
+        groupList = new JList<>(groupListModel);
+        groupList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane groupScrollPane = new JScrollPane(groupList);
+
+        // Panel de chat
+        chatArea = new JTextArea(10, 20);
+        chatArea.setEditable(false);
+        JScrollPane chatScrollPane = new JScrollPane(chatArea);
+
+        // Panel de mensaje
+        messageField = new JTextField(20);
+        JButton sendButton = new JButton("Enviar");
+        sendButton.addActionListener(new SendMessageActionListener());
+
+        // Panel principal
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(groupScrollPane, BorderLayout.WEST);
+        mainPanel.add(chatScrollPane, BorderLayout.CENTER);
+        mainPanel.add(messageField, BorderLayout.SOUTH);
+        mainPanel.add(sendButton, BorderLayout.SOUTH);
+
+        frame.getContentPane().add(mainPanel);
+        frame.pack();
+        frame.setVisible(true);
+
+        // Inicializar grupos
+        groups = new ArrayList<>();
+        groups.add("Grupo 1");
+        groups.add("Grupo 2");
+        groups.add("Grupo 3");
+        groupListModel.addAll(groups);
+    }
+
+    private class SendMessageActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String message = messageField.getText();
+            if (!message.isEmpty()) {
+                chatArea.append("Yo: " + message + "\n");
+                messageField.setText("");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new ChatClient();
+    }
+}
