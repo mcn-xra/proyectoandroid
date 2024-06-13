@@ -1,0 +1,105 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MensajeriaInstantanea {
+    private JFrame ventanaRegistro;
+    private JFrame ventanaLogin;
+    private JTextField txtNombre;
+    private JTextField txtCorreo;
+    private JTextField txtTelefono;
+    private JPasswordField txtContrasena;
+    private JCheckBox chkTerminos;
+    private JButton btnRegistrar;
+    private JButton btnIniciarSesion;
+
+    public MensajeriaInstantanea() {
+        crearVentanaRegistro();
+        crearVentanaLogin();
+    }
+
+    private void crearVentanaRegistro() {
+        ventanaRegistro = new JFrame("Registro");
+        ventanaRegistro.setSize(300, 250);
+        ventanaRegistro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventanaRegistro.setLayout(new FlowLayout());
+
+        JLabel lblNombre = new JLabel("Nombre:");
+        txtNombre = new JTextField(20);
+
+        JLabel lblCorreo = new JLabel("Correo electrónico:");
+        txtCorreo = new JTextField(20);
+
+        JLabel lblTelefono = new JLabel("Teléfono:");
+        txtTelefono = new JTextField(20);
+
+        JLabel lblContrasena = new JLabel("Contraseña:");
+        txtContrasena = new JPasswordField(20);
+
+        chkTerminos = new JCheckBox("Acepto términos y condiciones");
+
+        btnRegistrar = new JButton("Registrar");
+        btnRegistrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                registrarUsuario();
+            }
+        });
+
+        ventanaRegistro.add(lblNombre);
+        ventanaRegistro.add(txtNombre);
+        ventanaRegistro.add(lblCorreo);
+        ventanaRegistro.add(txtCorreo);
+        ventanaRegistro.add(lblTelefono);
+        ventanaRegistro.add(txtTelefono);
+        ventanaRegistro.add(lblContrasena);
+        ventanaRegistro.add(txtContrasena);
+        ventanaRegistro.add(chkTerminos);
+        ventanaRegistro.add(btnRegistrar);
+
+        ventanaRegistro.setVisible(true);
+    }
+
+    private void crearVentanaLogin() {
+        ventanaLogin = new JFrame("Iniciar sesión");
+        ventanaLogin.setSize(200, 150);
+        ventanaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventanaLogin.setLayout(new FlowLayout());
+
+        JLabel lblCorreoLogin = new JLabel("Correo electrónico:");
+        JTextField txtCorreoLogin = new JTextField(20);
+
+        JLabel lblContrasenaLogin = new JLabel("Contraseña:");
+        JPasswordField txtContrasenaLogin = new JPasswordField(20);
+
+        btnIniciarSesion = new JButton("Iniciar sesión");
+        btnIniciarSesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                iniciarSesion(txtCorreoLogin.getText(), txtContrasenaLogin.getPassword());
+            }
+        });
+
+        ventanaLogin.add(lblCorreoLogin);
+        ventanaLogin.add(txtCorreoLogin);
+        ventanaLogin.add(lblContrasenaLogin);
+        ventanaLogin.add(txtContrasenaLogin);
+        ventanaLogin.add(btnIniciarSesion);
+
+        ventanaLogin.setVisible(true);
+    }
+
+    private void registrarUsuario() {
+        // Aquí va la lógica para registrar el usuario en la base de datos
+        // Por ahora, solo mostramos un mensaje de confirmación
+        JOptionPane.showMessageDialog(ventanaRegistro, "Usuario registrado con éxito");
+    }
+
+    private void iniciarSesion(String correo, char[] contrasena) {
+        // Aquí va la lógica para verificar las credenciales del usuario en la base de datos
+        // Por ahora, solo mostramos un mensaje de confirmación
+        JOptionPane.showMessageDialog(ventanaLogin, "Sesión iniciada con éxito");
+    }
+
+    public static void main(String[] args) {
+        new MensajeriaInstantanea();
+    }
+}
